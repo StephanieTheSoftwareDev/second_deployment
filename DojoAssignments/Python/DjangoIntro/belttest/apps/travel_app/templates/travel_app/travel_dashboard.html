@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'travel_app/css/style.css' %}" media="screen" title="notitle" charset="utf-8">
+</head>
+<body>
+    <a href="/logout/">Logout</a> <a href="/add_trip/">Add Trip</a>
+        <h2>Hello, {{user.first_name}}{{request.session.first_name}}!</h2>
+        {% if messages %}
+            <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+            {% endif %}
+        {% if not trips %}
+        <p>You have no trips... how how about you add one above!</p>
+        {% endif %}
+        {% if trips %}
+        <p class="trips">Your Upcoming Trips:</p>
+        <table>
+                <tr>
+                    <td>Destination</td>
+                    <td>Travel Start Date</td>
+                    <td>Travel End Date</td>
+                    <td>Main Itinerary Goal</td>
+                    <td>Trip Host</td>
+                    <td>Action</td>
+                </tr>
+                
+                    {% for trip in trips %}
+                    <tr>
+                        <td><a href="/view_trip_details/{{trip.id}}/">{{trip.destination}}</a></td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td>{{trip.itinerary_goal}}</td>
+                        <td>{{trip.trip_creator.first_name}} {{trip.trip_creator.last_name}}</td>
+                        <td><a href="/delete_trip/{{trip.id}}/">Delete This Trip</a></td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+            </table>
+
+
+<br><br>
+
+
+
+            {% if other_trips %}
+            <p class="trips">Other User's Travel Plans:</p>
+            <table>
+                    <tr>
+                        <td>Created By</td>
+                        <td>Destination</td>
+                        <td>Travel Start Date</td>
+                        <td>Travel End Date</td>
+                        <td>Want to join them on their trip?</td>
+                    </tr>
+                    
+                        {% for trips in other_trips %}
+                        <tr>
+                            <td>{{trips.trip_creator.first_name}} {{trips.trip_creator.last_name}}</td>
+                            <td><a href="/view_trip_details/{{trips.id}}/">{{trips.destination}}</a></td>
+                            <td>{{trips.start_date}}</td>
+                            <td>{{trips.end_date}}</td>
+                            <td><a href="/add_this_trip/{{trips.id}}/">Join Them</a></td>
+                            
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+</body>
+</html>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'travel_app/css/style.css' %}" media="screen" title="notitle" charset="utf-8">
+</head>
+<body>
+    <a href="/logout/">Logout</a> <a href="/trips/">Your Trips</a>
+    <h2>Create a New Trip!</h2><br><br><br>
+    {% if messages %}
+        <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+        {% endif %}
+        <form action="/add/" method="post">
+            {% csrf_token %}
+            <p><label for="a">Destination:</label><input id="a" type="text" name="destination" placeholder="Where do you wanna go?"></p>
+            <p><label for="b">Main Itinerary Goal:</label><input id="b" type="text" name="itinerary_goal" placeholder="Whatcha wanna do when you get there?"></p>
+            <p><label for="c">Travel Start Date:</label><input id="c" type="date" name="start_date" placeholder="When do you wanna go?"></p>
+            <p><label for="d">Travel End Date:</label><input id="d" type="date" name="end_date" placeholder="When do you wanna come home?"></p>
+            <input type="submit" value="Add">
+        </form>
+        
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'travel_app/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+    <div id="wrapper">
+            {% if messages %}
+            <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+            {% endif %}
+        <div id="register">
+    <h2>Registration</h2>
+    
+    <form action="/reg/" method="post">
+        {% csrf_token %}
+        <p><label for="a">First Name:</label><input id="a" type="text" name="first_name" placeholder="What's your first name?"></p>
+        <p><label for="b">Last name:</label><input id="b" type="text" name="last_name" placeholder="What's your last name?"></p>
+        <p><label for="c">Birthdate:</label><input id="c" type="date" name="birthdate" placeholder="birthdate"></p>
+        <p><label for="d">Email:</label><input id="d" type="text" name="email" placeholder="What's your email address?"></p>
+        <p><label for="e">Password:</label><input id="e" type="text" name="pw" placeholder="At least 8 characters"></p>
+        <p><label for="f">Confirm pw:</label><input id="e" type="text" name="confpw" placeholder="Make sure it matches!"></p>
+        
+        <input type="submit" value="Register">
+    </form>
+</div>
+<div id="login">
+    <h2>Login</h2>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+        <p><label for="g">Email:</label><input id="g" type="text" name="email" placeholder="The email you used to create your account"></p>
+        <p><label for="h">Password:</label><input id="h" type="text" name="pw" placeholder="The password you used to create your account"></p>
+        
+        <input type="submit" value="Login">
+    </form>
+</div>
+</div>
+</body>
+</html>
